@@ -1,0 +1,34 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prociono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/RegistroEmpresa.css' %}">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box">
+        <h2>Perfil de {{ empleado.NombreEmpleado }}</h2>
+        <div class="avatar">
+            <img src="../../static/imagenes/camion.jpeg" alt="Imagen de usuario">
+        </div>
+
+        <form method="POST">
+            <div class="input-group">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="sign-in-btn">Guardar Cambios</button>
+            </div>
+        </form>
+        <a href="{% url 'BienvenidoEmpleado' %}"><button class="sign-in-btn">Regresar</button></a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Monitoreo de Sueño</title>
+    <style>
+        /* Estilos base */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-color: #0065ff;
+            margin: 0;
+        }
+
+        h1 { 
+            color: #ffff; 
+            font-size: 45px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        video { 
+            border: 5px solid #333; 
+            border-radius: 10px; 
+            max-width: 100%; /* Hace que el video sea responsivo */
+            height: auto; /* Mantiene la proporción */
+        }
+
+        .alertas {
+            margin-top: 20px;
+            font-size: 30px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup.active { 
+            display: block;        
+        }
+
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            background-color: #acaaa9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: not-allowed;
+        }
+
+        .popup button.active {
+            cursor: pointer;
+            background-color: #0065ff;
+        }
+
+        /* Estilos para el botón "Salir del monitoreo" */
+        .BtnAtras {
+            margin-top: 20px;
+            border: 1px solid #2e518b;
+            padding: 10px;
+            background-color: #2e518b;
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'Helvetica', sans-serif;
+            border-radius: 50px;
+            display: block;
+            width: 200px;
+            text-align: center;
+        }
+
+        /* Media Queries para hacerlo responsivo */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 30px;
+            }
+
+            .alertas {
+                font-size: 20px;
+            }
+
+            video {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+            }
+
+            .BtnAtras {
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 25px;
+            }
+
+            .alertas {
+                font-size: 18px;
+            }
+
+            .BtnAtras {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Monitoreo de Sueño</h1>
+    <img id="video" src="{% url 'video_feed' empleado_id=empleado_id %}" alt="Video feed">
+
+    <div class="alertas">
+        ¡IMPORTANTE!: Recuerda activar el volumen máximo en tu dispositivo. <span id="bip_count"></span><br>
+        Buen viaje :D <span id="alerta_count"></span>
+    </div>
+    <br>
+    <div>
+        <a href="{% url 'BienvenidoEmpleado' %}"><button class="BtnAtras">Salir del Monitoreo</button></a>
+    </div>
+
+    <div id="alarmaPopup" class="popup">
+        <h3>¡ALERTA! Ojos cerrados por más de 15 segundos.</h3>
+        <button id="btnApagarAlarma" class="btn" disabled>Apagar alarma</button>
+    </div>
+
+    <script>
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const empleadoId = {{ empleado_id|safe }};
+        console.log(empleadoId);  // Esto debería mostrar el ID correcto en la consola
+
+        const videoFeedUrl = `/video_feed/${empleadoId}/`;
+        document.getElementById("video").src = videoFeedUrl;
+
+
+        let alertaActual = 0;
+        let alarmaActiva = false;
+        let botonApagar = document.getElementById('btnApagarAlarma');
+
+        function mostrarAlarma() {
+            botonApagar.disabled = true;
+            botonApagar.classList.remove('active');
+            document.getElementById('alarmaPopup').classList.add('active');
+
+            setTimeout(() => {
+                botonApagar.disabled = false;
+                botonApagar.classList.add('active');
+                botonApagar.innerText = "Apagar alarma";
+            }, 15000);
+        }
+
+        function detenerAlarma() {
+            fetch("{% url 'detener_alarma' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken // Incluye el token CSRF aquí
+                },
+                body: JSON.stringify({ /* datos del formulario o cuerpo si es necesario */ })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);  // Depuración
+                if (data.status === 'ok') {
+                    alarmaActiva = false;
+                    document.getElementById('alarmaPopup').classList.remove('active');
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        botonApagar.addEventListener('click', detenerAlarma);
+
+        setInterval(obtenerAlertas, 1000);
+
+        window.addEventListener("beforeunload", () => {
+                fetch("/detener_monitoreo/", { method: "POST" })
+                    .then(response => console.log("Monitoreo detenido"))
+                    .catch(error => console.error("Error al detener el monitoreo:", error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+/*Diseño texto*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Prociono", sans-serif;
+}
+/*Diseño del fondo*/
+body{
+    background: url(../imagenes/nuevo.png) no-repeat center center/cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+/*Diseño del main*/
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0px;
+    margin: auto;
+    margin-top: 90px; /*para que el contenido baje un poco hacia abajo*/
+}
+
+/*Para los menus*/
+.contenedor__menu-empleado{
+    background-color: #ffffff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+    margin-top: 90px;
+}
+
+/* Estilo para el texto y separación de elementos */
+.contenedor__menu-empleado h2 {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 1.5em;
+    color: #0063ff;
+}
+
+.contenedor__menu-empleado button,
+.contenedor__menu-empleado a {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    margin: 15px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #0362ff;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1em;
+    cursor: pointer;
+    border: 2px solid #fff;
+}
+
+.contenedor__menu-empleado a{
+    margin-top: 55px;
+}
+
+.contenedor__menu-empleado button:hover,
+    .contenedor__menu-empleado a:hover {
+        background-color: #024cb3;
+    }

@@ -1,0 +1,52 @@
+{% load static %} <!-- Permite usar los recursos de static-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a SecureVision</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prociono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/empresa.css' %}">
+</head>
+
+
+<body>
+
+    <div class="contenedor">
+        <h1>Bienvenido Empresa</h1>
+        <input type="text" id="buscador" placeholder="Buscar empleado por usuario o nombre" onkeyup="filtrarEmpleados()">
+
+        <div class="contenedor-empleados">
+            <!-- Contenedor para empleados activos -->
+            <div>
+                <h3>Empleados Activos</h3>
+                <div class="empleados-activos">
+                    <div class="empleados">
+                        
+                        
+                        <!--PHP-->
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenedor para empleados desconectados -->
+            <div>
+                <h3>Empleados Desconectados</h3>
+                <div class="empleados-desconectados">
+                    <div class="empleados">
+                
+                        <!--PHP-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="php/cerrar_sesion.php" class="boton-cerrar-sesion">Cerrar sesión</a>
+    </div>
+</body>
+</html>

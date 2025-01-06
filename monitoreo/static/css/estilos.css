@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Prociono", sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: #253260; /* Fondo morado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.outer-container {
+    width: calc(100% - 4cm); /* Resta 2 cm de cada lado horizontal */
+    height: calc(100% - 4cm); /* Resta 2 cm de cada lado vertical */
+    background: url(../imagenes/fondo2.png) no-repeat center center/cover;
+    padding: 20px; /* Espacio interno alrededor del contenedor interno */
+    border-radius: 20px; /* Bordes redondeados para el contenedor externo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    width: calc(100% - 6cm); /* Resta 3 cm de cada lado horizontal */
+    height: calc(100% - 6cm); /* Resta 3 cm de cada lado vertical */
+    background: url(../imagenes/nuevo.png) no-repeat center center/cover;
+    background-size: cover;
+    padding: 50px 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    text-align: center;
+}
+
+.welcome-section {
+    max-width: 600px; /* Ancho máximo para limitar el contenido */
+
+}
+
+.welcome-section h1 {
+    font-size: 60px;
+    letter-spacing: 10px;
+    margin-bottom: 10px;
+}
+
+.welcome-section p {
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.menu {
+    display: flex;
+    gap: 15px; /* Espacio entre los botones */
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.menu button {
+    background-color: #24497b; /* Color de fondo de los botones */
+    color: #fff;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu button:hover {
+    background-color: #005fa3; /* Color de fondo al pasar el cursor */
+}
+
+/* Media Queries para responsive */
+
+@media (max-width: 1024px) {
+    .outer-container {
+        width: calc(100% - 3cm); /* Reducir el espacio lateral en tabletas */
+        height: calc(100% - 3cm);
+    }
+    
+    .container {
+        width: calc(100% - 5cm);
+        height: calc(100% - 5cm);
+        padding: 40px 20px;
+    }
+
+    .welcome-section h1 {
+        font-size: 50px; /* Reducir tamaño del título en pantallas medianas */
+    }
+
+    .menu button {
+        padding: 8px 15px;
+        font-size: 14px; /* Reducir el tamaño de los botones */
+    }
+}
+
+@media (max-width: 768px) {
+    .outer-container {
+        width: calc(100% - 2cm);
+        height: calc(100% - 2cm);
+    }
+
+    .container {
+        width: calc(100% - 4cm);
+        height: calc(100% - 4cm);
+        padding: 30px 15px;
+
+    }
+
+    .welcome-section h1 {
+        font-size: 40px; /* Reducir aún más el tamaño del título */
+    }
+
+    .welcome-section p {
+        font-size: 14px; /* Reducir tamaño del párrafo */
+    }
+
+    .menu {
+        flex-direction: column; /* Colocar los botones en columna */
+        gap: 10px;
+    }
+
+    .menu button {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .outer-container {
+        width: 80%;
+        height: 90%;
+        padding: 10px;
+    }
+
+    .container {
+        width: 90%;
+        height: 90%;
+        padding: 20px;
+        background: url(../imagenes/vert1.png) no-repeat center center/cover;
+    }
+
+    .welcome-section h1 {
+        font-size: 17px; /* Reducir aún más el tamaño del título */
+    }
+
+    .welcome-section p {
+        font-size: 12px; /* Reducir tamaño del párrafo */
+    }
+
+    .menu {
+        gap: 5px;
+    }
+
+    .menu button {
+        padding: 10px 70px;
+        font-size: 14px; /* Botones más pequeños */
+    }
+}

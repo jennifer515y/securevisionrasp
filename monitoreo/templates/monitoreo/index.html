@@ -1,0 +1,30 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Vision</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prociono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <header>
+        <div class="outer-container">
+            <div class="container">
+                <div class="welcome-section">
+                    <h1>¡Bienvenidos!</h1>
+                    <p>A donde protegemos lo que sí importa</p>
+                    <div class="menu">
+                        <a href="{% url 'Iniciar' %}"><button>Iniciar sesión</button></a>
+                        <a href="{% url 'RegistroEmpresa' %}"><button>Registrarse como empresa</button></a>
+                        <a href="{% url 'RegistroEmpleado' %}"><button>Registrarse como empleado</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

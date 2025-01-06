@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVision</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        ul li strong {
+            font-weight: bold;
+        }
+        #map {
+            height: 400px; /* Tamaño del mapa */
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .btn-custom {
+            background: #0065ff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        .btn-custom:hover {
+            background: #253260;
+        }
+        @media (max-width: 400px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles de {{ empleado.NombreEmpleado }}</h1>
+        <ul>
+            <li><strong>Correo:</strong> {{ empleado.CorreoEmpleado }}</li>
+            <li><strong>Teléfono:</strong> {{ empleado.NumeroEmpleado }}</li>
+            <li><strong>Usuario:</strong> {{ empleado.UsuarioEmpleado }}</li>
+            <li><strong>Activo:</strong> {{ empleado.Activo|yesno:"Sí,No" }}</li>
+        </ul>
+        <form method="POST" action="{% url 'cambiar_alarma' empleado.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-custom">Alerta atendida</button>
+        </form>
+
+        <!-- Mostrar el mapa solo si tiene coordenadas -->
+        {% if empleado.Latitud and empleado.Longitud %}
+            <div id="map"></div>
+        {% else %}
+            <p class="text-center mt-3">No hay ubicación registrada para este empleado.</p>
+        {% endif %}
+
+        <a href="{% url 'ListaEmpleados' %}" class="d-block mt-3">
+            <button class="btn btn-custom">Volver a la lista</button>
+        </a>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var latitud = {{ empleado.Latitud|default:0 }};
+        var longitud = {{ empleado.Longitud|default:0 }};
+
+        var map = L.map('map').setView([latitud, longitud], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        if (latitud !== 0 && longitud !== 0) {
+            L.marker([latitud, longitud]).addTo(map)
+                .bindPopup("<b>{{ empleado.NombreEmpleado }}</b><br>{{ empleado.CorreoEmpleado }}")
+                .openPopup();
+        }
+
+        {% if empleado.Latitud and empleado.Longitud %}
+            var marker = L.marker([latitud, longitud]).addTo(map);
+
+            const socket = new WebSocket(`ws://${window.location.host}/ws/location/${empleado.id}/`);
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                marker.setLatLng([data.latitud, data.longitud]);
+                map.setView([data.latitud, data.longitud]);
+            };
+        {% endif %}
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de empresa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prociono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/RegistroEmpresa.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Registro de Empresa</h2>
+            <div class="avatar">
+                <img src="../../static/imagenes/centrado.jpeg" alt="User Icon">
+            </div>
+            <form method="POST" action="{% url 'RegistroEmpresa' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="input-group">
+                    <label for="name">Nombre completo</label>
+                    <input type="text" id="nombreEmpresa" name="nombreEmpresa" placeholder="Nombre completo del titular" required>
+                </div>
+                <div class="input-group">
+                    <label for="company">Empresa</label>
+                    <input type="text" id="Empresa" name="TituloEmpresa" placeholder="Nombre de la empresa" required>
+                </div>
+                <div class="input-group">
+                    <label for="rfc">RFC</label>
+                    <input type="text" id="RFCEmpresa" name="RFCEmpresa" placeholder="RFC" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone">Número de teléfono</label>
+                    <input type="tel" id="NumeroEmpresa" name="NumeroEmpresa" placeholder="Teléfono del encargado del monitoreo" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="CorreoEmpresa" name="CorreoEmpresa" placeholder="Correo electrónico" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="ContrasenaEmpresa" name="ContrasenaEmpresa" placeholder="Contraseña" required>
+                </div>
+                <input type="hidden" name="is_empresa" value="True">
+                <button type="submit" class="sign-in-btn">Registrarme</button>
+            </form>
+            <form method="post" action="{% url 'index' %}">
+                {% csrf_token %}
+                <button type="submit" class="back-btn">Regresar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

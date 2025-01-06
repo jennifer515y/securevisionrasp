@@ -1,0 +1,45 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prociono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/iniciar.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Inicio de sesión</h2>
+            <div class="avatar">
+                <img src="../../static/imagenes/centrado.jpeg" alt="User Icon">
+            </div>
+            <form method="POST" action="{% url 'Iniciar' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="input-group">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
+                </div>
+                <div class="input-group">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+                </div>
+                <div class="options">
+                    <a href="{% url 'SoporteUsuarios' %}" class="forgot-password">¿Tienes problemas para iniciar?</a>
+                </div>
+                <button class="iniciar" type="submit">Iniciar</button>
+            </form>
+            <br>
+            <form method="post" action="{% url 'index' %}">
+                {% csrf_token %}
+                <button type="submit" class="regresar">Regresar</button>
+            </form>
+            
+        </div>
+    </div>
+</body>
+</html>

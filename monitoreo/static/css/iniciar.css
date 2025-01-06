@@ -1,0 +1,158 @@
+/* Estilos básicos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Prociono", sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #253260;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background: #0065ff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-box {
+    background: #3c3f6c;
+    color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    position: relative;
+    width: 300px;
+    max-width: 90vw; /* Ajuste para pantallas pequeñas */
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+}
+
+.avatar {
+    background: #ffffff;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar img {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 0.9em;
+    color: #e0f7fa;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 4px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.forgot-password {
+    color: #e0f7fa;
+    font-size: 0.85em;
+}
+
+.regresar {
+    background: #253260;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.regresar:hover {
+    background: #0065ff;
+}
+
+.iniciar{
+    background: #253260;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.iniciar:hover {
+    background: #0065ff;
+}
+
+/* Estilos responsive */
+@media (max-width: 600px) {
+    .login-box {
+        padding: 20px;
+        width: 100%; /* Utiliza todo el ancho de la pantalla */
+    }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .avatar img {
+        width: 80px;
+    }
+
+    .input-group label {
+        font-size: 0.8em;
+    }
+
+    .sign-in-btn {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 400px) {
+    .login-box {
+        padding: 15px;
+    }
+
+    .options {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .forgot-password {
+        font-size: 0.75em;
+    }
+}
